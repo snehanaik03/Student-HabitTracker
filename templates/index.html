@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>StudyTrack | Student Habit Tracker</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+<body>
+
+    <!-- =========================================
+         SIDEBAR
+    ========================================== -->
+
+    <aside class="sidebar">
+
+        <div class="logo">
+            <div class="logo-icon">🎓</div>
+
+            <div>
+                <h2>StudyTrack</h2>
+                <p>Student Productivity</p>
+            </div>
+        </div>
+
+
+        <nav class="navigation">
+
+            <a href="#" class="nav-link active">
+                <span>🏠</span>
+                <span>Dashboard</span>
+            </a>
+
+            <a href="#habits" class="nav-link">
+                <span>✅</span>
+                <span>My Habits</span>
+            </a>
+
+            <a href="#progress" class="nav-link">
+                <span>📊</span>
+                <span>Progress</span>
+            </a>
+
+            <a href="#calendar" class="nav-link">
+                <span>📅</span>
+                <span>Calendar</span>
+            </a>
+
+            <a href="#analytics" class="nav-link">
+                <span>📈</span>
+                <span>Analytics</span>
+            </a>
+
+        </nav>
+
+
+        <div class="sidebar-bottom">
+
+            <p class="menu-title">PERSONAL</p>
+
+            <a href="#" class="nav-link">
+                <span>⚙️</span>
+                <span>Settings</span>
+            </a>
+
+            <div class="profile-small">
+
+                <div class="profile-avatar">
+                    SN
+                </div>
+
+                <div>
+                    <strong>Sneha</strong>
+                    <small>Keep going! 🔥</small>
+                </div>
+
+            </div>
+
+        </div>
+
+    </aside>
+
+
+
+    <!-- =========================================
+         MAIN CONTENT
+    ========================================== -->
+
+    <main class="main-content">
+
+
+        <!-- TOP BAR -->
+
+        <header class="topbar">
+
+            <div>
+
+                <p class="today-label">
+                    TODAY
+                </p>
+
+                <h1>
+                    Good evening, Sneha 👋
+                </h1>
+
+                <p class="subtitle">
+                    Small progress every day creates big results.
+                </p>
+
+            </div>
+
+
+            <div class="top-actions">
+
+                <button class="icon-button" id="themeButton">
+                    🌙
+                </button>
+
+                <button class="notification-button">
+                    🔔
+                </button>
+
+                <div class="top-avatar">
+                    SN
+                </div>
+
+            </div>
+
+        </header>
+
+
+
+        <!-- =========================================
+             SUMMARY CARDS
+        ========================================== -->
+
+        <section class="summary-grid">
+
+
+            <!-- TOTAL HABITS -->
+
+            <div class="summary-card">
+
+                <div class="card-top">
+
+                    <div class="card-icon purple">
+                        📋
+                    </div>
+
+                    <span class="card-arrow">
+                        ↗
+                    </span>
+
+                </div>
+
+                <h2 id="totalHabits">
+                    0
+                </h2>
+
+                <p>
+                    Total Habits
+                </p>
+
+                <div class="mini-progress">
+                    <span id="totalProgress"></span>
+                </div>
+
+            </div>
+
+
+
+            <!-- COMPLETED -->
+
+            <div class="summary-card">
+
+                <div class="card-top">
+
+                    <div class="card-icon green">
+                        ✅
+                    </div>
+
+                    <span class="card-arrow">
+                        ↗
+                    </span>
+
+                </div>
+
+                <h2 id="completedHabits">
+                    0
+                </h2>
+
+                <p>
+                    Completed
+                </p>
+
+                <div class="mini-progress green-progress">
+                    <span id="completedProgress"></span>
+                </div>
+
+            </div>
+
+
+
+            <!-- PROGRESS -->
+
+            <div class="summary-card">
+
+                <div class="card-top">
+
+                    <div class="card-icon blue">
+                        📈
+                    </div>
+
+                    <span class="card-arrow">
+                        ↗
+                    </span>
+
+                </div>
+
+                <h2 id="progressPercentage">
+                    0%
+                </h2>
+
+                <p>
+                    Today's Progress
+                </p>
+
+                <div class="mini-progress blue-progress">
+                    <span id="percentageProgress"></span>
+                </div>
+
+            </div>
+
+
+
+            <!-- STREAK -->
+
+            <div class="summary-card">
+
+                <div class="card-top">
+
+                    <div class="card-icon orange">
+                        🔥
+                    </div>
+
+                    <span class="card-arrow">
+                        ↗
+                    </span>
+
+                </div>
+
+                <h2>
+                    0
+                </h2>
+
+                <p>
+                    Current Streak
+                </p>
+
+                <div class="streak-text">
+                    Keep building your streak!
+                </div>
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- =========================================
+             HABITS SECTION
+        ========================================== -->
+
+        <section class="dashboard-grid">
+
+
+            <!-- TODAY'S HABITS -->
+
+            <div class="habits-card" id="habits">
+
+                <div class="section-header">
+
+                    <div>
+
+                        <h2>
+                            Today's Habits
+                        </h2>
+
+                        <p>
+                            Stay consistent and reach your goals.
+                        </p>
+
+                    </div>
+
+                    <button
+                        class="add-button"
+                        id="openModalButton">
+
+                        + Add Habit
+
+                    </button>
+
+                </div>
+
+
+                <!-- HABIT LIST -->
+
+                <div id="habitList" class="habit-list">
+
+                    <!-- JavaScript will insert habits here -->
+
+                    <div class="empty-state">
+
+                        <div class="empty-icon">
+                            🌱
+                        </div>
+
+                        <h3>
+                            No habits yet
+                        </h3>
+
+                        <p>
+                            Add your first habit and start building your routine.
+                        </p>
+
+                        <button
+                            class="empty-button"
+                            id="emptyAddButton">
+
+                            + Add Your First Habit
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- =========================================
+                 PROGRESS CARD
+            ========================================== -->
+
+            <div class="progress-card" id="progress">
+
+                <div class="section-header">
+
+                    <div>
+
+                        <h2>
+                            Today's Progress
+                        </h2>
+
+                        <p>
+                            Your daily completion
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="progress-circle">
+
+                    <div class="circle-content">
+
+                        <strong id="circlePercentage">
+                            0%
+                        </strong>
+
+                        <span>
+                            Complete
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <div class="progress-message">
+
+                    <span>
+                        🎯
+                    </span>
+
+                    <p id="progressMessage">
+                        Start your first habit today!
+                    </p>
+
+                </div>
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- =========================================
+             LOWER SECTION
+        ========================================== -->
+
+        <section class="lower-grid">
+
+
+            <!-- WEEKLY OVERVIEW -->
+
+            <div class="weekly-card" id="analytics">
+
+                <div class="section-header">
+
+                    <div>
+
+                        <h2>
+                            Weekly Overview
+                        </h2>
+
+                        <p>
+                            Keep showing up every day.
+                        </p>
+
+                    </div>
+
+                    <span class="week-badge">
+                        This Week
+                    </span>
+
+                </div>
+
+
+                <div class="week-chart">
+
+                    <div class="day">
+
+                        <div class="bar" style="height: 35%;">
+                        </div>
+
+                        <span>
+                            Mon
+                        </span>
+
+                    </div>
+
+
+                    <div class="day">
+
+                        <div class="bar" style="height: 55%;">
+                        </div>
+
+                        <span>
+                            Tue
+                        </span>
+
+                    </div>
+
+
+                    <div class="day">
+
+                        <div class="bar" style="height: 75%;">
+                        </div>
+
+                        <span>
+                            Wed
+                        </span>
+
+                    </div>
+
+
+                    <div class="day">
+
+                        <div class="bar active-bar" style="height: 45%;">
+                        </div>
+
+                        <span>
+                            Thu
+                        </span>
+
+                    </div>
+
+
+                    <div class="day">
+
+                        <div class="bar" style="height: 65%;">
+                        </div>
+
+                        <span>
+                            Fri
+                        </span>
+
+                    </div>
+
+
+                    <div class="day">
+
+                        <div class="bar" style="height: 30%;">
+                        </div>
+
+                        <span>
+                            Sat
+                        </span>
+
+                    </div>
+
+
+                    <div class="day">
+
+                        <div class="bar" style="height: 20%;">
+                        </div>
+
+                        <span>
+                            Sun
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- MOTIVATION CARD -->
+
+            <div class="motivation-card">
+
+                <div class="motivation-icon">
+                    🚀
+                </div>
+
+                <h2>
+                    One step at a time
+                </h2>
+
+                <p>
+                    You don't need to be perfect.
+                    You just need to be consistent.
+                </p>
+
+                <div class="quote">
+                    "Success is the sum of small efforts,
+                    repeated day in and day out."
+                </div>
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- =========================================
+             CALENDAR PLACEHOLDER
+        ========================================== -->
+
+        <section
+            class="info-section"
+            id="calendar">
+
+            <div class="info-icon">
+                📅
+            </div>
+
+            <div>
+
+                <h2>
+                    Calendar
+                </h2>
+
+                <p>
+                    Your habit calendar will appear here.
+                    We can add date-wise tracking next.
+                </p>
+
+            </div>
+
+        </section>
+
+
+
+    </main>
+
+
+
+    <!-- =========================================
+         ADD / EDIT HABIT MODAL
+    ========================================== -->
+
+    <div
+        class="modal-overlay"
+        id="habitModal">
+
+
+        <div class="modal">
+
+
+            <div class="modal-header">
+
+                <div>
+
+                    <h2 id="modalTitle">
+                        Add New Habit
+                    </h2>
+
+                    <p>
+                        Create a habit for your daily routine.
+                    </p>
+
+                </div>
+
+                <button
+                    class="close-button"
+                    id="closeModalButton">
+
+                    ×
+
+                </button>
+
+            </div>
+
+
+
+            <form id="habitForm">
+
+
+                <!-- HABIT NAME -->
+
+                <div class="form-group">
+
+                    <label for="habitName">
+                        Habit Name
+                    </label>
+
+                    <input
+                        type="text"
+                        id="habitName"
+                        placeholder="Example: Study Python"
+                        required>
+
+                </div>
+
+
+
+                <!-- CATEGORY -->
+
+                <div class="form-group">
+
+                    <label for="habitCategory">
+                        Category
+                    </label>
+
+                    <select id="habitCategory">
+
+                        <option value="Study">
+                            📚 Study
+                        </option>
+
+                        <option value="Placement">
+                            💼 Placement
+                        </option>
+
+                        <option value="Health">
+                            ❤️ Health
+                        </option>
+
+                        <option value="Project">
+                            💻 Project
+                        </option>
+
+                        <option value="Personal">
+                            🌱 Personal
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+
+                <!-- TARGET -->
+
+                <div class="form-group">
+
+                    <label for="habitTarget">
+                        Daily Target
+                    </label>
+
+                    <input
+                        type="number"
+                        id="habitTarget"
+                        value="1"
+                        min="1"
+                        max="100"
+                        required>
+
+                </div>
+
+
+
+                <!-- BUTTONS -->
+
+                <div class="modal-buttons">
+
+                    <button
+                        type="button"
+                        class="cancel-button"
+                        id="cancelButton">
+
+                        Cancel
+
+                    </button>
+
+                    <button
+                        type="submit"
+                        class="save-button">
+
+                        Save Habit
+
+                    </button>
+
+                </div>
+
+
+            </form>
+
+
+        </div>
+
+    </div>
+
+
+
+    <!-- JavaScript -->
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+
+
+</body>
+
+</html>
