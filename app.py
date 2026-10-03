@@ -1,5 +1,8 @@
-from flask import Flask, render_template, request, jsonify
+import os
+import shutil
 import sqlite3
+
+from flask import Flask, jsonify, render_template, request
 
 app = Flask(__name__)
 
@@ -8,8 +11,21 @@ app = Flask(__name__)
 # DATABASE CONNECTION
 # ==============================
 
+import tempfile
+
+DB_FILE = os.path.join(os.path.dirname(__file__), "habits.db")
+
+def get_db_path():
+    if os.environ.get("VERCEL"):
+        tmp_db = os.path.join(tempfile.gettempdir(), "habits.db")
+        if not os.path.exists(tmp_db):
+            if os.path.exists(DB_FILE):
+                shutil.copyfile(DB_FILE, tmp_db)
+        return tmp_db
+    return DB_FILE
+
 def get_db_connection():
-    conn = sqlite3.connect("habits.db")
+    conn = sqlite3.connect(get_db_path())
     conn.row_factory = sqlite3.Row
     return conn
 
@@ -34,6 +50,9 @@ def create_table():
 
     conn.commit()
     conn.close()
+
+
+create_table()
 
 
 # ==============================
@@ -212,7 +231,4 @@ def edit_habit(habit_id):
 # ==============================
 
 if __name__ == "__main__":
-
-    create_table()
-
-    app.run(debug=True)
+    app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)), debug=False)
